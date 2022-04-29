@@ -1,0 +1,27 @@
+#serve per far partire più cose, in questo caso facciamo partire sia un docker per il backend sia un docker per postgres
+#ricordarsi di ammazzare il postgres locale sennò c'è un conflitto
+
+version: '3'
+
+services:
+
+  db:
+    image: "postgres"
+    ports:
+      - "5432"
+    environment:
+      POSTGRES_DB: boodb
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      restart: unless-stopped
+
+  booking: #servizio2, il nostro container, quello che abbiamo creato nel dockerfile, il backend
+    build: .
+    image: booking #nome del jar che verrà mandato in esecuzione, deve coincidere con quello nel dockerfile
+    container_name: booking
+    ports:
+      - "7500:7500"
+    depends_on: #alias links, uno dei due è in deprecazione
+      - db  #importante, sennò non si connette col database
+
+
