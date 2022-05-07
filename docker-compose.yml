@@ -24,4 +24,16 @@ services:
     depends_on: #alias links, uno dei due è in deprecazione
       - db  #importante, sennò non si connette col database
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672" #host
+      - "15672:15672" #managment port, per la UI
+    container_name: rabbitmq
+#poi da rimuovere, serve a far comunicare diversi docker-compose in un network di default, ma kube dovrebbe già farlo
+networks:
+  default:
+    external:
+      name: front_default
+
 
