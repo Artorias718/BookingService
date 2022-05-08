@@ -1,4 +1,3 @@
-com/seabook/booking/Receiver.class
 com/seabook/booking/bookingService.class
 com/seabook/booking/model/Reservation.class
 com/seabook/booking/repo/ReservationsRepository.class
