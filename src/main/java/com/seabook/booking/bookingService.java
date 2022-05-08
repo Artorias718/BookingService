@@ -28,7 +28,7 @@ public class bookingService {
 	//gestisce la coda
 	@Bean
 	Queue queue() {
-		return new Queue(queueName, false);
+		return new Queue(queueName);
 	}
 	//controlla lo scambio messaggi
 	@Bean

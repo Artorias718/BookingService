@@ -45,12 +45,12 @@ public class ReservationController {
     @PostMapping("/prenotazioni/create")
     public Reservation postReservation(@RequestBody Reservation reservation) {
 
-       Reservation newrev =repository.save(new Reservation(
+       Reservation newrev = repository.save(new Reservation(
                reservation.getStabilimentoID(),
                reservation.getListaPostiPrenotati(),
                reservation.getTotalPrice()));
 
-        rabbitTemplate.convertAndSend(bookingService.topicExchangeName, "foo.bar.baz", "Hello from RabbitMQ (Gio Dic 2021)!");
+        rabbitTemplate.convertAndSend(bookingService.topicExchangeName, "foo.bar.baz", reservation.getListaPostiPrenotati());
 
 
         return newrev;
