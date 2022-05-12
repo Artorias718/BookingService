@@ -13,7 +13,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -22,10 +21,12 @@ public class ReservationController {
 
     private final RabbitTemplate rabbitTemplate;
 
+
     public ReservationController(RabbitTemplate rabbitTemplate){this.rabbitTemplate = rabbitTemplate;}
 
     @Autowired
     ReservationsRepository repository;
+
 
     @GetMapping("/lista_prenotazioni")
     public List<Reservation> getAllSpots() {
@@ -40,6 +41,7 @@ public class ReservationController {
     public Optional<Reservation> getReservation(@PathVariable long id){
 
         return repository.findById(id);
+
     }
 
     @PostMapping("/prenotazioni/create")
@@ -71,6 +73,8 @@ public class ReservationController {
         repository.deleteById(id);
 
         return new ResponseEntity<>("Reservation has been deleted!", HttpStatus.OK);
+        //TODO
+        //anche qui servirebbe un messaggio da rabbitmq per risettare il posto come libero
     }
 
     @DeleteMapping("/stabilimento/{sid}/delete_reservations")
@@ -79,6 +83,9 @@ public class ReservationController {
         repository.deleteAllByStabilimentoID(sid);
 
         return new ResponseEntity<>("Reservations has been deleted!", HttpStatus.OK);
+
+        //TODO
+        //anche qui servirebbe un messaggio da rabbitmq per risettare il posto come libero
     }
 
     @PutMapping("/lista_prenotazioni/{id}/put")
