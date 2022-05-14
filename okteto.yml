@@ -36,6 +36,7 @@ dev:
       - .:/usr/src/app
     forward:
       - 5005:5005
+      - 7500:7500
     volumes:
       - /root/.m2
   db:
@@ -47,16 +48,6 @@ dev:
     forward:
       - 5005:5005
       - 5432:5432
-    volumes:
-      - /root/.m2
-  rabbitmq:
-    image: okteto/maven:3
-    command: bash
-    workdir: /usr/src/app
-    sync:
-      - .:/usr/src/app
-    forward:
-      - 5005:5005
     volumes:
       - /root/.m2
 

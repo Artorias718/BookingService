@@ -70,11 +70,19 @@ public class ReservationController {
     @DeleteMapping("/lista_prenotazioni/{id}/delete")
     public ResponseEntity<String> deleteReservation(@PathVariable("id") long id) {
 
+        Optional<Reservation> reservation = repository.findById(id);
+
+        if (reservation.isPresent()) {
+            Reservation res = reservation.get();
+            List<Integer> arry = new ArrayList<Integer>();
+            arry.addAll(res.getListaPostiPrenotati());
+            rabbitTemplate.convertAndSend(bookingService.topicExchangeName, "foo2.bar.baz", arry);
+        }
+
         repository.deleteById(id);
 
         return new ResponseEntity<>("Reservation has been deleted!", HttpStatus.OK);
-        //TODO
-        //anche qui servirebbe un messaggio da rabbitmq per risettare il posto come libero
+
     }
 
     @DeleteMapping("/stabilimento/{sid}/delete_reservations")

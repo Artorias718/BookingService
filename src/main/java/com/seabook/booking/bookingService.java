@@ -14,7 +14,6 @@ public class bookingService {
 
 	static final String topicExchangeName = "spring-boot-exchange";
 
-	static final String queueName = "spring-boot";
 
 
 }
