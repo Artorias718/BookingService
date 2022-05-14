@@ -88,12 +88,19 @@ public class ReservationController {
     @DeleteMapping("/stabilimento/{sid}/delete_reservations")
     public ResponseEntity<String> deleteReservationBySid(@PathVariable long sid) {
 
+        List<Reservation> prenotazioni = new ArrayList<>();
+        repository.findAllByStabilimentoID(sid).forEach(prenotazioni::add);
+        for(Reservation res: prenotazioni){
+            res.getListaPostiPrenotati();
+            List<Integer> arry = new ArrayList<Integer>();
+            arry.addAll(res.getListaPostiPrenotati());
+            rabbitTemplate.convertAndSend(bookingService.topicExchangeName, "foo2.bar.baz", arry);
+        }
+
         repository.deleteAllByStabilimentoID(sid);
 
         return new ResponseEntity<>("Reservations has been deleted!", HttpStatus.OK);
 
-        //TODO
-        //anche qui servirebbe un messaggio da rabbitmq per risettare il posto come libero
     }
 
     @PutMapping("/lista_prenotazioni/{id}/put")
