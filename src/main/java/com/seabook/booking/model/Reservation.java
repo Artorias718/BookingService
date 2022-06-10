@@ -1,11 +1,12 @@
 package com.seabook.booking.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.*;
 
 @Entity
 @Table(name = "prenotazione")
-public class Reservation {
+public class Reservation implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,6 +23,17 @@ public class Reservation {
     @Column(name = "listaPostiPrenotati")
     private List<Integer> listaPostiPrenotati;
 
+    // TODO(1) mettere la data per la prenotazione DONE
+    @Column(name = "date")
+    private Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public long getId() {
         return id;
@@ -62,4 +74,10 @@ public class Reservation {
 
     }
 
+    public Reservation(long stabilimentoID, double totalPrice, List<Integer> listaPostiPrenotati, Date date) {
+        this.stabilimentoID = stabilimentoID;
+        this.totalPrice = totalPrice;
+        this.listaPostiPrenotati = listaPostiPrenotati;
+        this.date = date;
+    }
 }

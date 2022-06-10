@@ -1,5 +1,6 @@
 package com.seabook.booking;
 
+import com.seabook.booking.model.BookMessage;
 import com.seabook.booking.model.Reservation;
 import com.seabook.booking.repo.ReservationsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,12 +49,21 @@ public class ReservationController {
     @PostMapping("/prenotazioni/create")
     public Reservation postReservation(@RequestBody Reservation reservation) {
 
-       Reservation newrev = repository.save(new Reservation(
+        System.out.println("\n\n\n\n\n\n\n" + reservation.getDate());
+        Reservation newrev = repository.save(new Reservation(
                reservation.getStabilimentoID(),
+               reservation.getTotalPrice(),
                reservation.getListaPostiPrenotati(),
-               reservation.getTotalPrice()));
+               reservation.getDate()));
 
-        rabbitTemplate.convertAndSend(bookingService.topicExchangeName, "foo.bar.baz", reservation.getListaPostiPrenotati());
+        BookMessage bookMessage = new BookMessage();
+        bookMessage.setDataPrenotazione(reservation.getDate());
+        bookMessage.setListaPosti(reservation.getListaPostiPrenotati());
+
+
+        // TODO(2) cambiare il tipo di oggetto che la queue riceve
+//        rabbitTemplate.convertAndSend(bookingService.topicExchangeName, "foo.bar.baz", reservation.getListaPostiPrenotati());
+        rabbitTemplate.convertAndSend(bookingService.topicExchangeName, "foo.bar.baz", bookMessage);
 
 
         return newrev;

@@ -1,4 +1,4 @@
-/home/artorias/Desktop/bookingService/bookingService/src/main/java/com/seabook/booking/ReservationController.java
-/home/artorias/Desktop/bookingService/bookingService/src/main/java/com/seabook/booking/model/Reservation.java
-/home/artorias/Desktop/bookingService/bookingService/src/main/java/com/seabook/booking/repo/ReservationsRepository.java
-/home/artorias/Desktop/bookingService/bookingService/src/main/java/com/seabook/booking/bookingService.java
+/home/gubun1/Documents/2021-22_TAASS/project/BookingService/src/main/java/com/seabook/booking/model/Reservation.java
+/home/gubun1/Documents/2021-22_TAASS/project/BookingService/src/main/java/com/seabook/booking/repo/ReservationsRepository.java
+/home/gubun1/Documents/2021-22_TAASS/project/BookingService/src/main/java/com/seabook/booking/ReservationController.java
+/home/gubun1/Documents/2021-22_TAASS/project/BookingService/src/main/java/com/seabook/booking/bookingService.java
