@@ -61,10 +61,10 @@ public class ReservationController {
         bookMessage.setListaPosti(reservation.getListaPostiPrenotati());
 
 
-        // TODO(2) cambiare il tipo di oggetto che la queue riceve
-//        rabbitTemplate.convertAndSend(bookingService.topicExchangeName, "foo.bar.baz", reservation.getListaPostiPrenotati());
-        rabbitTemplate.convertAndSend(bookingService.topicExchangeName, "foo.bar.baz", bookMessage);
-
+        // TODO(2) cambiare il tipo di oggetto da inviare nella queue
+        rabbitTemplate.convertAndSend(bookingService.topicExchangeName, "foo.bar.baz", reservation.getListaPostiPrenotati());
+//        rabbitTemplate.convertAndSend(bookingService.topicExchangeName, "foo.bar.baz", bookMessage);
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\t\t Inviato book msg");
 
         return newrev;
     }

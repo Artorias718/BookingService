@@ -1,9 +1,10 @@
 package com.seabook.booking.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class BookMessage {
+public class BookMessage implements Serializable {
     private Date dataPrenotazione;
     private List<Integer> listaPosti;
 

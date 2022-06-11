@@ -23,7 +23,6 @@ public class Reservation implements Serializable {
     @Column(name = "listaPostiPrenotati")
     private List<Integer> listaPostiPrenotati;
 
-    // TODO(1) mettere la data per la prenotazione DONE
     @Column(name = "date")
     private Date date;
 
