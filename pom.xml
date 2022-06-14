@@ -70,18 +70,19 @@
             <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>com.vaadin.external.google</groupId>-->
+<!--			<artifactId>android-json</artifactId>-->
+<!--		</dependency>-->
+
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
 		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter</artifactId>
-			<version>RELEASE</version>
-			<scope>test</scope>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20220320</version>
 		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter</artifactId>
-			<version>RELEASE</version>
-			<scope>test</scope>
-		</dependency>
+
 
 
 	</dependencies>
