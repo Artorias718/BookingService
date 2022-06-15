@@ -62,16 +62,17 @@ public class ReservationController {
         bookMessage.setDataPrenotazione(reservation.getDate());
         bookMessage.setListaPosti(reservation.getListaPostiPrenotati());
 
-//        JSONObject obj = new JSONObject(bookMessage.toString());
-        // String a = obj.getJSONObject("result").getString("name");
-        // System.out.println(a);
+//        JSONObject obj = new JSONObject(bookMessage);
+//        String a = obj.getJSONObject("result").getString("name");
+//        System.out.println("\n\n\n\n\n\n\n\n\n\n\t\t" + obj);
 
-        String res = bookMessage.toString();
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\t\t" + res + "\n\n\n\n\n\n\n\n\n\n");
+        String strReservation = bookMessage.toString();
+        System.out.println(strReservation + "\n\n\n\n\n\n\n\n\n\n");
 
         // TODO(2) cambiare il tipo di oggetto da inviare nella queue
 //        rabbitTemplate.convertAndSend(bookingService.topicExchangeName, "foo.bar.baz", reservation.getListaPostiPrenotati());
-        rabbitTemplate.convertAndSend(bookingService.topicExchangeName, "foo.bar.baz", bookMessage.toString());
+//        rabbitTemplate.convertAndSend(bookingService.topicExchangeName, "foo.bar.baz", bookMessage.toString());
+        rabbitTemplate.convertAndSend(bookingService.topicExchangeName, "foo.bar.baz", strReservation);
         System.out.println("\n\n\n\n\n\n\n\n\n\n\t\t Inviato book msg");
 
         return newrev;
