@@ -51,12 +51,14 @@ public class ReservationController {
     @PostMapping("/prenotazioni/create")
     public Reservation postReservation(@RequestBody Reservation reservation) {
 
-        System.out.println("\n\n\n\n\n\n\n" + reservation.getDate());
+        System.out.println("\n\n\n\n\n\n\n" + reservation);
         Reservation newrev = repository.save(new Reservation(
                reservation.getStabilimentoID(),
                reservation.getTotalPrice(),
                reservation.getListaPostiPrenotati(),
-               reservation.getDate()));
+               reservation.getDate(),
+               reservation.getUserEmail()
+        ));
 
         BookMessage bookMessage = new BookMessage();
         bookMessage.setDataPrenotazione(reservation.getDate());

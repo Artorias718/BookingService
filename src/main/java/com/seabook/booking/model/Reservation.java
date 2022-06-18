@@ -26,6 +26,25 @@ public class Reservation implements Serializable {
     @Column(name = "date")
     private Date date;
 
+    @Column(name = "userEmail")
+    private String userEmail;
+
+    public Reservation(long stabilimentoID, double totalPrice, List<Integer> listaPostiPrenotati, Date date, String userEmail) {
+        this.stabilimentoID = stabilimentoID;
+        this.totalPrice = totalPrice;
+        this.listaPostiPrenotati = listaPostiPrenotati;
+        this.date = date;
+        this.userEmail = userEmail;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
     public Date getDate() {
         return date;
     }
@@ -78,5 +97,17 @@ public class Reservation implements Serializable {
         this.totalPrice = totalPrice;
         this.listaPostiPrenotati = listaPostiPrenotati;
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", stabilimentoID=" + stabilimentoID +
+                ", totalPrice=" + totalPrice +
+                ", listaPostiPrenotati=" + listaPostiPrenotati +
+                ", date=" + date +
+                ", userEmail='" + userEmail + '\'' +
+                '}';
     }
 }
