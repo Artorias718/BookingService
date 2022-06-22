@@ -13,4 +13,6 @@ public interface ReservationsRepository extends CrudRepository<Reservation,Long>
     @Transactional
     void deleteAllByStabilimentoID(long sid);
 
+    List<Reservation> findByUserEmail(String userEmail);
+
 }

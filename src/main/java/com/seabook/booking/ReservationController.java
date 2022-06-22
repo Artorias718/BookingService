@@ -48,6 +48,30 @@ public class ReservationController {
 
     }
 
+    @GetMapping("/lista_prenotazioni?email={userEmail}")
+    public ResponseEntity<List<Reservation>> getReservationListByEmail(@PathVariable String userEmail) {
+
+        System.out.println("\n\n\nReservation for: " + userEmail + "\n\n\n\n");
+        // repository.findByEmail(userEmail);
+        List<Reservation> reservations = new ArrayList<>();
+        repository.findByUserEmail(userEmail).forEach(reservations::add);
+        System.out.println("\n\n\nReservation for: " + userEmail + "\n" + reservations + "\n\n\n\n");
+
+        return new ResponseEntity<>(reservations, HttpStatus.OK);
+    }
+
+    @GetMapping("/lista_prenotazioni/email/{userEmail}")
+    public ResponseEntity<List<Reservation>> getReservationListByEmail1(@PathVariable String userEmail) {
+
+        System.out.println("\n\n\nReservation for: " + userEmail + "\n\n\n\n");
+        // repository.findByEmail(userEmail);
+        List<Reservation> reservations = new ArrayList<>();
+        repository.findByUserEmail(userEmail).forEach(reservations::add);
+        System.out.println("\n\n\nReservation for: " + userEmail + "\n" + reservations + "\n\n\n\n");
+
+        return new ResponseEntity<>(reservations, HttpStatus.OK);
+    }
+
     @PostMapping("/prenotazioni/create")
     public Reservation postReservation(@RequestBody Reservation reservation) {
 
@@ -141,7 +165,6 @@ public class ReservationController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
 
 
 }
