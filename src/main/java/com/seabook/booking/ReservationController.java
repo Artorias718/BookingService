@@ -48,8 +48,11 @@ public class ReservationController {
 
     }
 
+    // non becca la mail e ritorna tutte, probabilmente non e' nel pattern di rest
+    // forse ho capito: legge soltanto fino al punto ? e ingora il resto e cosi non entra nemmeno in questo metodo
+    // ma nell'entryponit @GetMapping("/lista_prenotazioni")
     @GetMapping("/lista_prenotazioni?email={userEmail}")
-    public ResponseEntity<List<Reservation>> getReservationListByEmail(@PathVariable String userEmail) {
+    public ResponseEntity<List<Reservation>> getReservationListByEmail(@PathVariable("userEmail") String userEmail) {
 
         System.out.println("\n\n\nReservation for: " + userEmail + "\n\n\n\n");
         // repository.findByEmail(userEmail);
@@ -61,9 +64,9 @@ public class ReservationController {
     }
 
     @GetMapping("/lista_prenotazioni/email/{userEmail}")
-    public ResponseEntity<List<Reservation>> getReservationListByEmail1(@PathVariable String userEmail) {
+    public ResponseEntity<List<Reservation>> getReservationListByEmail1(@PathVariable("userEmail") String userEmail) {
 
-        System.out.println("\n\n\nReservation for: " + userEmail + "\n\n\n\n");
+        System.out.println("\n\n\nemail: " + userEmail + "\n");
         // repository.findByEmail(userEmail);
         List<Reservation> reservations = new ArrayList<>();
         repository.findByUserEmail(userEmail).forEach(reservations::add);
@@ -115,20 +118,17 @@ public class ReservationController {
 
     @DeleteMapping("/lista_prenotazioni/{id}/delete")
     public ResponseEntity<String> deleteReservation(@PathVariable("id") long id) {
-
         Optional<Reservation> reservation = repository.findById(id);
-
+        BookMessage bookMessage = new BookMessage();
         if (reservation.isPresent()) {
             Reservation res = reservation.get();
-            List<Integer> arry = new ArrayList<Integer>();
-            arry.addAll(res.getListaPostiPrenotati());
-            rabbitTemplate.convertAndSend(bookingService.topicExchangeName, "foo2.bar.baz", arry);
+            bookMessage.setDataPrenotazione(res.getDate());
+            bookMessage.setListaPosti(res.getListaPostiPrenotati());
+            String strReservation = bookMessage.toString();
+            rabbitTemplate.convertAndSend(bookingService.topicExchangeName, "foo2.bar.baz", strReservation);
         }
-
         repository.deleteById(id);
-
         return new ResponseEntity<>("Reservation has been deleted!", HttpStatus.OK);
-
     }
 
     @DeleteMapping("/stabilimento/{sid}/delete_reservations")
