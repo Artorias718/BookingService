@@ -31,7 +31,6 @@ public class ReservationController {
     @Autowired
     ReservationsRepository repository;
 
-
     @GetMapping("/lista_prenotazioni")
     public List<Reservation> getAllSpots() {
 
@@ -46,21 +45,6 @@ public class ReservationController {
 
         return repository.findById(id);
 
-    }
-
-    // non becca la mail e ritorna tutte, probabilmente non e' nel pattern di rest
-    // forse ho capito: legge soltanto fino al punto ? e ingora il resto e cosi non entra nemmeno in questo metodo
-    // ma nell'entryponit @GetMapping("/lista_prenotazioni")
-    @GetMapping("/lista_prenotazioni?email={userEmail}")
-    public ResponseEntity<List<Reservation>> getReservationListByEmail(@PathVariable("userEmail") String userEmail) {
-
-        System.out.println("\n\n\nReservation for: " + userEmail + "\n\n\n\n");
-        // repository.findByEmail(userEmail);
-        List<Reservation> reservations = new ArrayList<>();
-        repository.findByUserEmail(userEmail).forEach(reservations::add);
-        System.out.println("\n\n\nReservation for: " + userEmail + "\n" + reservations + "\n\n\n\n");
-
-        return new ResponseEntity<>(reservations, HttpStatus.OK);
     }
 
     @GetMapping("/lista_prenotazioni/email/{userEmail}")
