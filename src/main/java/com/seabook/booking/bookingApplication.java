@@ -6,14 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-public class bookingService {
+public class bookingApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(bookingService.class, args);
+		SpringApplication.run(bookingApplication.class, args);
 	}
-
-	static final String topicExchangeName = "spring-boot-exchange";
-
-
 
 }
