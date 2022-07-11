@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000",
+        "https://fe-artorias718.cloud.okteto.net",
+        "https://apigateway-artorias718.cloud.okteto.net"})
 @RestController
 @RequestMapping("/api/v2")
 @RequiredArgsConstructor
